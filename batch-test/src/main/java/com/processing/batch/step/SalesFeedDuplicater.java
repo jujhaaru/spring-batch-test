@@ -19,20 +19,21 @@ import org.springframework.batch.repeat.RepeatStatus;
  */
 public class SalesFeedDuplicater implements Tasklet, StepExecutionListener {
 
-	private String salesFeedNumber;
+	private Integer salesFeedNumber=123;
 	
 	private final Logger LOG = LoggerFactory.getLogger(SalesFeedDuplicater.class);
 
 	@Override
 	public void beforeStep(StepExecution stepExecution) {
-		
+		LOG.info(":::::::::::::::: Started Batch Execution of file");
+
 
 	}
 
 	@Override
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		LOG.info(":::::::::::::::: sales duplicater {}",salesFeedNumber);
+		return RepeatStatus.FINISHED;
 	}
 
 	@Override
@@ -40,8 +41,8 @@ public class SalesFeedDuplicater implements Tasklet, StepExecutionListener {
 		stepExecution
 		  .getJobExecution()
 		  .getExecutionContext()
-		  .put("feedDetails", this.salesFeedNumber);
-		return null;
+		  .put("salesFeedNumber", this.salesFeedNumber);
+		return ExitStatus.COMPLETED;
 	}
 
 }

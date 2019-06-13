@@ -11,6 +11,7 @@ import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean;
 import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -67,6 +68,7 @@ public class GRIBatchConfig {
 	}
 
 	@Bean
+	@Qualifier("taskletsJob")
 	public Job job() {
 		return jobs.get("taskletsJob").start(duplicateSalesFeed()).next(duplicateCustomerFeed()).build();
 	}
