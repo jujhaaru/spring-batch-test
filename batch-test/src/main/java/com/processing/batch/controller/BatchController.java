@@ -14,13 +14,9 @@ import sun.font.TrueTypeFont;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-/**
- * @author 5256313
- *
- */
 @RestController
 @RequestMapping(value = "v1")
+
 @EnableScheduling
 public class BatchController {
 
@@ -28,7 +24,7 @@ public class BatchController {
     private BatchService batchService;
 
     @GetMapping("apply/gri")
-    @Scheduled(cron = "0 */1 * * * ?")
+    @Scheduled(cron = "0 */60 * * * ?")
     private ResponseEntity<String> processBatch(){
 
 
