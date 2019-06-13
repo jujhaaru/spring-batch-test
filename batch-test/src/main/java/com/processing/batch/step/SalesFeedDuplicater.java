@@ -19,7 +19,7 @@ import org.springframework.batch.repeat.RepeatStatus;
  */
 public class SalesFeedDuplicater implements Tasklet, StepExecutionListener {
 
-	private Integer salesFeedNumber=123;
+	private Long salesFeedNumber;
 	
 	private final Logger LOG = LoggerFactory.getLogger(SalesFeedDuplicater.class);
 
@@ -32,6 +32,7 @@ public class SalesFeedDuplicater implements Tasklet, StepExecutionListener {
 
 	@Override
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+		this.salesFeedNumber = (Long)chunkContext.getStepContext().getJobParameters().get("salesFeedNumber");
 		LOG.info(":::::::::::::::: sales duplicater {}",salesFeedNumber);
 		return RepeatStatus.FINISHED;
 	}

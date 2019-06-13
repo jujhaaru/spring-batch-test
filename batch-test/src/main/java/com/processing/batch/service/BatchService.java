@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface BatchService {
 
-    String processJobs(List<Integer> details);
+    String processJobs(List<Long> details);
 }

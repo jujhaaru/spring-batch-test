@@ -2,18 +2,19 @@ package com.processing.batch.service;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BatchServiceImpl implements BatchService {
-
 
 
     @Autowired
@@ -24,15 +25,21 @@ public class BatchServiceImpl implements BatchService {
     private Job job;
 
     @Override
-    public String processJobs(List<Integer> details) {
-        details.forEach(System.out::println);
+    public String processJobs(List<Long> details) {
+        details.forEach(obj -> {
+            try {
+                Map<String, JobParameter> map = new HashMap<>();
+                JobParameter jp = new JobParameter(obj.longValue());
+                map.put("salesFeedNumber", jp);
+                JobParameters parameters = new JobParameters(map);
 
-        try {
-            JobExecution execution = jobLauncher.run(job, new JobParameters());
-            System.out.println(execution.getStatus());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+                JobExecution execution = jobLauncher.run(job, parameters);
+                System.out.println(execution.getStatus());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
 
         return "Successfully executed";
     }

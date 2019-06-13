@@ -28,7 +28,7 @@ public class BatchController {
     private ResponseEntity<String> processBatch(){
 
 
-        List<Integer> details = Arrays.asList(1, 2, 3, 4, 4, 5, 5, 6, 7, 8, 0);
+        List<Long> details = Arrays.asList(1l, 2l, 3l, 4l, 5l, 6l, 7l, 8l);
         String status=batchService.processJobs(details);
         return new ResponseEntity<>(status,HttpStatus.ACCEPTED);
     }
