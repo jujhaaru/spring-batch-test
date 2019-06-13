@@ -4,6 +4,8 @@ import com.processing.batch.service.BatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,12 +21,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "v1")
+@EnableScheduling
 public class BatchController {
 
     @Autowired(required = true)
     private BatchService batchService;
 
     @GetMapping("apply/gri")
+    @Scheduled(cron = "0 */1 * * * ?")
     private ResponseEntity<String> processBatch(){
 
 

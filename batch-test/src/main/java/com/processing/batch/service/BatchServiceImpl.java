@@ -25,12 +25,16 @@ public class BatchServiceImpl implements BatchService {
     private Job job;
 
     @Override
+
+
     public String processJobs(List<Long> details) {
         details.forEach(obj -> {
             try {
                 Map<String, JobParameter> map = new HashMap<>();
                 JobParameter jp = new JobParameter(obj.longValue());
                 map.put("salesFeedNumber", jp);
+                JobParameter timeAsParameter = new JobParameter(System.currentTimeMillis());
+                map.put("currentTime", timeAsParameter);
                 JobParameters parameters = new JobParameters(map);
 
                 JobExecution execution = jobLauncher.run(job, parameters);
